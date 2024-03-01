@@ -64,9 +64,35 @@ public class MapsDemo {
                 carWithCertainColor.add(c);
             }
         }
+        for (Car c : cars) {
+            if (c.carColor.equals(CarColors.WHITE)) {
+                carWithCertainColor.add(c);
+            }
+        }
+        for (Car c : cars) {
+            if (c.carColor.equals(CarColors.RED)) {
+                carWithCertainColor.add(c);
+            }
+        }
+        for (Car c : cars) {
+            if (c.carColor.equals(CarColors.GREEN)) {
+                carWithCertainColor.add(c);
+                System.out.println(c);
+            }
+        }
 
         for (Car c : carWithCertainColor) {
-            System.out.println(ownedCars.get(c));
+            System.out.println(ownedCars.get(carWithCertainColor));
         }
-    }
-}
+
+
+        }
+
+
+        }
+
+
+
+
+
+
