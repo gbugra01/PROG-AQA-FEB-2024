@@ -1,4 +1,4 @@
-package org.prog.testng;
+package org.prog.junit;
 
 import io.restassured.RestAssured;
 import org.openqa.selenium.By;
@@ -16,12 +16,11 @@ import org.testng.annotations.Test;
 import java.time.Duration;
 import java.util.List;
 
-public class MyTestNGTest2 {
-
+public class RestAssuredTest {
+    WebDriver driver=new ChromeDriver();
+    String userName=getRandomUsername();
     @Test
-    public void mySeleniumCode() {
-        String userName = getRandomFirstLastName();
-        WebDriver driver = new ChromeDriver();
+    public void restAssured() {
         try {
             driver.get("https://google.com/");
             List<WebElement> cookieButtons =
@@ -29,9 +28,7 @@ public class MyTestNGTest2 {
                             "//a[contains(@href,'https://policies.google.com/technologies/cookies')]/../../../..//button"));
             if (!cookieButtons.isEmpty()) {
                 cookieButtons.get(3).click();
-            }
-
-            WebElement searchInput = driver.findElement(By.name("q"));
+            }            WebElement searchInput = driver.findElement(By.name("q"));
             searchInput.sendKeys(userName);
             searchInput.sendKeys(Keys.ENTER);
 
@@ -50,17 +47,22 @@ public class MyTestNGTest2 {
             driver.quit();
         }
     }
-
-    private String getRandomFirstLastName() {
-        RestAssured.baseURI = "https://randomuser.me/";
-        ResultsDto dto = RestAssured.given()
-                .queryParam("inc", "gender,name,nat,id")
+    private String getRandomUsername(){
+        RestAssured.baseURI="https://randomuser.me/";
+        ResultsDto dto= (ResultsDto) RestAssured.given()
+                .queryParam("inc","gender,name,nat,id")
                 .queryParam("noinfo")
                 .basePath("api/")
                 .get()
                 .as(ResultsDto.class);
+        NameDto name=dto.getResults().get(0).getName();
+        return name.getFirst()+" "+name.getLast();
 
-        NameDto name = dto.getResults().get(0).getName();
-        return name.getFirst() + " " + name.getLast();
+
     }
-}
+
+
+
+
+        }
+
